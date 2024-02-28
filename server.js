@@ -1,5 +1,7 @@
 import Weather from '@tinoschroeter/weather-js'
 import ollama from 'ollama'
+import colorize from 'json-colorizer'
+import chalk from 'chalk'
 
 const weather = new Weather()
 
@@ -77,12 +79,37 @@ if (r1) {
   })
   messages.push(ai2.message)
   if (!DEBUG) {
+    // print the LLM's response to our function-response
     console.log(ai2.message.content)
   }
 } else {
+  // no function was called, so just print the LLM's response
   console.log(ai1.message.content)
 }
 
+// show the full conversation-flow
 if (DEBUG) {
-  console.log(messages)
+  console.log(
+    messages
+      .map(({ role, content }) => {
+        let message = content
+        let user = chalk.green(role)
+        if (role === 'user') {
+          user = chalk.cyan(role)
+          try {
+            message = colorize(JSON.stringify(JSON.parse(content), null, 2))
+          } catch (e) {}
+        } else {
+          try {
+            rFunc.lastIndex = 0
+            const [_, name, args] = rFunc.exec(content)
+            if (name && args) {
+              message = `FUNCTION ${chalk.bold(name)}(${colorize(args)})`
+            }
+          } catch (e) {}
+        }
+        return `${user}: ${message}`
+      })
+      .join('\n\n')
+  )
 }

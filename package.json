@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@tinoschroeter/weather-js": "^3.0.2",
+    "chalk": "^5.3.0",
+    "json-colorizer": "^2.2.2",
     "ollama": "^0.4.9"
   }
 }
