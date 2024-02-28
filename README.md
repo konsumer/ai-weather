@@ -1,5 +1,7 @@
 This is a simple example of calling functions on an LLM.
 
+![screenshot](screen.png)
+
 ```
 # setup dependencies
 npm i
