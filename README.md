@@ -7,6 +7,7 @@ This is a simple example of calling functions on an LLM.
 It can get current weather & forecast. Here are some example questions it will try to answer with real weather-data:
 
 ```
+Is it raining?
 What will the weather be like this week, in Seattle, WA?
 Is it raining in Portland, OR?
 What will the weather be on Wednesday, in New York City?

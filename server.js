@@ -10,6 +10,8 @@ const { DEBUG = false } = process.env
 
 const model = 'konsumer/weather'
 
+const getCityFromIP = () => fetch('https://vpncheck.vercel.app/geo').then(r => r.json()).then(d => `${d.city}, ${d.country === 'US' ? d.region : d.country}`)
+
 const functions = {
   async current({ city }) {
     try {
@@ -74,7 +76,7 @@ async function processAnswer(answer) {
 
 const p = process.argv.slice(2).join(' ')
 
-const messages = [{ role: 'user', content: `Right now, it's ${format(new Date(), "eeee, yyyy-MM-dd")}. ${p}` }]
+const messages = [{ role: 'user', content: `Right now, it's ${format(new Date(), "eeee, yyyy-MM-dd")}. I am in ${await getCityFromIP()}. ${p}` }]
 
 const ai1 = await ollama.chat({
   model,
