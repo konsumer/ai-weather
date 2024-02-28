@@ -3,7 +3,7 @@ import ollama from 'ollama'
 
 const weather = new Weather()
 
-const DEBUG = false
+const { DEBUG = false } = process.env
 
 const functions = {
   async current({ city }) {
