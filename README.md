@@ -4,14 +4,14 @@ This is a simple example of calling functions on an LLM.
 # setup dependencies
 npm i
 
-# I cannot currently publish my ollama test model, so you have to build it locally (requires ollama CLI installed, in your path)
+# You can build the ollama model, locally (not needed)
 npm run weather:build
 
 # test with Portland
 npm test
 
 # test with any question
-node server "What is your purpose, and also whayt sort of weather do you like?"
+npm run weather "what do you liek to do for fun?"
 
-# My purpose is to provide information about the current and forecasted weather for any city. As for my personal preferences, I am a big fan of sunny days with moderate temperatures
+# I enjoy helping users get information about the weather. It's a pleasure to be of assistance!
 ```
