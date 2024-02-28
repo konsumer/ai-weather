@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "weather:build": "ollama create weather -f weather.Modelfile",
-    "weather": "ollama run weather",
+    "weather": "node server.js",
     "preweather": "npm run weather:build"
   },
   "dependencies": {
