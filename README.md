@@ -4,7 +4,7 @@ This is a simple example of calling functions on an LLM.
 
 ## what can it do?
 
-It can get current weather & forecast. Here are some examples:
+It can get current weather & forecast. Here are some example questions it will try to answer with real weather-data:
 
 ```
 What will the weather be like this week, in Seattle, WA?
