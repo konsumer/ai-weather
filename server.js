@@ -9,9 +9,12 @@ const functions = {
   async current({ city }) {
     try {
       const [{ current }] = await weather.find({ search: city, degreeType: 'F' })
+      
+      // cleanup junk-fields
       delete current.day
       delete current.shortday
       delete current.imageUrl
+      
       return { current }
     } catch (e) {
       if (DEBUG) {
@@ -33,6 +36,7 @@ const functions = {
   }
 }
 
+// this is used to find function-calls in AI-response
 const rFunc = /<functioncall> {"name": "([a-zA-Z]+)", "arguments": '(.+)'}/gm
 
 async function processAnswer(answer) {
