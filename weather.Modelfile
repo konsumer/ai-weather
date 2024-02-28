@@ -20,6 +20,7 @@ You have access to the following functions. Use them if required -
     }
   }
 }
+
 {
   "name": "forecast",
   "description": "Forecast the weather for any city, for 1-5 days from now. This will return the temperature and the weather for each day this week.",
