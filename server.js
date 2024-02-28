@@ -46,17 +46,21 @@ async function processAnswer(answer) {
 const p = process.argv.slice(2).join(' ')
 console.log(`>> ${p}\n`)
 
+const messages = [{ role: 'user', content: p }]
+
 const ai1 = await ollama.chat({
-    model: 'weather',
-    messages: [{ role: 'user', content: p }],
+    model: 'konsumer/weather',
+    messages
 })
 
+messages.push(ai1.message)
 const r1 = await processAnswer(ai1.message.content)
 
 if (r1) {
+    messages.push({ role: 'user', content: JSON.stringify(r1) })
     const ai2 = await ollama.chat({
-        model: 'weather',
-        messages: [{ role: 'user', content: JSON.stringify(r1) }],
+        model: 'konsumer/weather',
+        messages,
     })
     console.log(`> ${ai1.message.content}\n`)
     console.log(`] ${JSON.stringify(r1)}\n`)

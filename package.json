@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "weather:build": "ollama create weather -f weather.Modelfile",
+    "weather:build": "ollama create konsumer/weather -f weather.Modelfile",
     "weather": "node server.js",
     "preweather": "npm run weather:build"
   },
