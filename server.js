@@ -9,12 +9,12 @@ const functions = {
   async current({ city }) {
     try {
       const [{ current }] = await weather.find({ search: city, degreeType: 'F' })
-      
+
       // cleanup junk-fields
       delete current.day
       delete current.shortday
       delete current.imageUrl
-      
+
       return { current }
     } catch (e) {
       if (DEBUG) {
@@ -68,9 +68,9 @@ const ai1 = await ollama.chat({
 
 messages.push(ai1.message)
 const r1 = await processAnswer(ai1.message.content)
+messages.push({ role: 'user', content: JSON.stringify(r1) })
 
 if (r1) {
-  messages.push({ role: 'user', content: JSON.stringify(r1) })
   const ai2 = await ollama.chat({
     model: 'konsumer/weather',
     messages
@@ -79,6 +79,8 @@ if (r1) {
   if (!DEBUG) {
     console.log(ai2.message.content)
   }
+} else {
+  console.log(ai1.message.content)
 }
 
 if (DEBUG) {

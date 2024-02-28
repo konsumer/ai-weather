@@ -6,7 +6,7 @@
   "scripts": {
     "weather:build": "ollama create konsumer/weather -f weather.Modelfile",
     "weather": "node server.js",
-    "preweather": "npm run weather:build"
+    "test": "DEBUG=true npm run weather what kind of weather can I expect today, in Portland, OR?"
   },
   "dependencies": {
     "@tinoschroeter/weather-js": "^3.0.2",

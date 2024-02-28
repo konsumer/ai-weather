@@ -1,5 +1,5 @@
-#  ollama create weather -f weather.Modelfile
-#  ollama run weather
+#  ollama create konsumer/weather -f weather.Modelfile
+#  ollama run konsumer/weather
 
 FROM calebfahlgren/natural-functions
 
@@ -8,21 +8,21 @@ You are a helpful assistant that can answer questions about the weather. Any tim
 
 {
   "name": "current",
-  "description": "Get the current weather for any city",
+  "description": "Get the current weather for any city.",
   "parameters": {
     "city": {
       "type": "string",
-      "description": "The city where you would like to get weather info"
+      "description": "The city where you would like to get weather info."
     }
   }
 }
 {
   "name": "forecast",
-  "description": "Forecast the weather for any city",
+  "description": "Forecast the weather for any city.",
   "parameters": {
     "city": {
       "type": "string",
-      "description": "The city where you would like to get weather info"
+      "description": "The city where you would like to get weather info."
     }
   }
 }
