@@ -15,66 +15,9 @@ How hot is it likely to be, next Friday, in Tampa, FL?
 
 ## hallucination
 
-It makes up answers sometimes, like the last question gave me this:
+It makes up answers sometimes. Generally, the trick is improving the prompt, and writing better function-descriptions.
 
-> It will likely be 78 degrees on Friday, February 27th in Tampa, FL. The day will start out partly sunny and get warmer as the day goes on. There's a chance of precipitation throughout the week
-
-Which has the wrong date & forecast:
-
-```json
-[
-  {
-    "low": "59",
-    "high": "78",
-    "skycodeday": "30",
-    "skytextday": "Partly Sunny",
-    "date": "2024-02-27",
-    "day": "Tuesday",
-    "shortday": "Tue",
-    "precip": "1"
-  },
-  {
-    "low": "60",
-    "high": "79",
-    "skycodeday": "34",
-    "skytextday": "Mostly Sunny",
-    "date": "2024-02-28",
-    "day": "Wednesday",
-    "shortday": "Wed",
-    "precip": "1"
-  },
-  {
-    "low": "61",
-    "high": "75",
-    "skycodeday": "30",
-    "skytextday": "Partly Sunny",
-    "date": "2024-02-29",
-    "day": "Thursday",
-    "shortday": "Thu",
-    "precip": "22"
-  },
-  {
-    "low": "63",
-    "high": "80",
-    "skycodeday": "30",
-    "skytextday": "Partly Sunny",
-    "date": "2024-03-01",
-    "day": "Friday",
-    "shortday": "Fri",
-    "precip": "5"
-  },
-  {
-    "low": "63",
-    "high": "76",
-    "skycodeday": "28",
-    "skytextday": "Mostly Cloudy",
-    "date": "2024-03-02",
-    "day": "Saturday",
-    "shortday": "Sat",
-    "precip": "26"
-  }
-]
-```
+For example, there used to not be a `forecast_for_day` and it would not say "Right now, it's Tuesday, 2024-02-27." With these, it's more likely to answer "How hot is it likely to be, next Friday, in Tampa, FL?" correctly, but it still messes up. About 1/3 of the time, it will decide the date should be Saturday, or pull the wrong day from `forecast`, or other similar problems.
 
 ## things you can do
 

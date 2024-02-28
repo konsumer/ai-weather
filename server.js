@@ -2,6 +2,7 @@ import Weather from '@tinoschroeter/weather-js'
 import ollama from 'ollama'
 import colorize from 'json-colorizer'
 import chalk from 'chalk'
+import { format } from 'date-fns'
 
 const weather = new Weather()
 
@@ -35,24 +36,34 @@ const functions = {
       }
       throw new Error(`Could not get the forecasted weather for ${city}.`)
     }
+  },
+  
+  async forecast_for_date({city, date}) {
+    const { forecast } = await functions.forecast({city})
+    const dayForecast = forecast.find(f => f.date === date)
+    if (!dayForecast) {
+      throw new Error(`Could not get the weather forecast for ${city} on ${date}.`)
+    }
+    return { forecast: dayForecast }
   }
 }
 
 // this is used to find function-calls in AI-response
-const rFunc = /<functioncall> {"name": "([a-zA-Z]+)", "arguments": '(.+)'}/gm
+const rFunc = /<functioncall> {"name": "(.+)", "arguments": '(.+)'}/gm
 
 async function processAnswer(answer) {
   if (answer.startsWith('<functioncall> ')) {
     try {
-      const [_, name, argsj] = rFunc.exec(answer)
-      if (!name) {
+      rFunc.lastIndex = 0
+      const r = rFunc.exec(answer)
+      if (!r || !r[1]) {
         return { error: 'Could not parse function-call.' }
       }
-      const res = await functions[name](JSON.parse(argsj))
-      return { [name]: { status: 'success', ...res } }
+      const res = await functions[r[1]](JSON.parse(r[2] || '{}'))
+      return { [r[1]]: { status: 'success', ...res } }
     } catch (e) {
       if (DEBUG) {
-        console.error(e.message, name, argsj)
+        console.error(e.message)
       }
       return { error: 'Could not call function.' }
     }
@@ -61,7 +72,7 @@ async function processAnswer(answer) {
 
 const p = process.argv.slice(2).join(' ')
 
-const messages = [{ role: 'user', content: p }]
+const messages = [{ role: 'user', content: `Right now, it's ${format(new Date(), "eeee, yyyy-MM-dd")}. ${p}` }]
 
 const ai1 = await ollama.chat({
   model: 'konsumer/weather',
@@ -70,9 +81,10 @@ const ai1 = await ollama.chat({
 
 messages.push(ai1.message)
 const r1 = await processAnswer(ai1.message.content)
-messages.push({ role: 'user', content: JSON.stringify(r1) })
 
 if (r1) {
+  messages.push({ role: 'user', content: JSON.stringify(r1) })
+
   const ai2 = await ollama.chat({
     model: 'konsumer/weather',
     messages

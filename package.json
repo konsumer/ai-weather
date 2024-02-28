@@ -7,11 +7,12 @@
     "weather:build": "ollama create konsumer/weather -f weather.Modelfile",
     "weather:push": "ollama push konsumer/weather",
     "weather": "node server.js",
-    "test": "DEBUG=true node server.js what kind of weather can I expect today, in Portland, OR?"
+    "test": "DEBUG=1 node server.js what kind of weather can I expect today, in Portland, OR?"
   },
   "dependencies": {
     "@tinoschroeter/weather-js": "^3.0.2",
     "chalk": "^5.3.0",
+    "date-fns": "^3.3.1",
     "json-colorizer": "^2.2.2",
     "ollama": "^0.4.9"
   }
