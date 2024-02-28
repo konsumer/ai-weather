@@ -2,6 +2,8 @@ This is a simple example of calling functions on an LLM.
 
 ![screenshot](screen.png)
 
+## what can it do?
+
 It can get current weather & forecast. Here are some examples:
 
 ```
@@ -11,7 +13,9 @@ What will the weather be on Wednesday, in New York City?
 How hot is it likely to be, next Friday, in Tampa, FL?
 ```
 
-It hallucinates sometimes, like the last question gave me this:
+## hallucination
+
+It makes up answers sometimes, like the last question gave me this:
 
 > It will likely be 78 degrees on Friday, February 27th in Tampa, FL. The day will start out partly sunny and get warmer as the day goes on. There's a chance of precipitation throughout the week
 
