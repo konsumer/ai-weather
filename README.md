@@ -72,6 +72,12 @@ Which has the wrong date & forecast:
 ]
 ```
 
+## things you can do
+
+- Check out [the code](server.js) that wraps the return-value (pulling out function-calls.)
+- Check out [the ollama Modelfile](weather.Modelfile) that tells the LLM about th functions.
+- You can chat directly with this model with `ollama run konsumer/weather`, but you will need to provide your own function-answers.
+
 ```
 # setup dependencies
 npm i
