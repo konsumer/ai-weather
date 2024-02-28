@@ -8,6 +8,8 @@ const weather = new Weather()
 
 const { DEBUG = false } = process.env
 
+const model = 'konsumer/weather'
+
 const functions = {
   async current({ city }) {
     try {
@@ -75,7 +77,7 @@ const p = process.argv.slice(2).join(' ')
 const messages = [{ role: 'user', content: `Right now, it's ${format(new Date(), "eeee, yyyy-MM-dd")}. ${p}` }]
 
 const ai1 = await ollama.chat({
-  model: 'konsumer/weather',
+  model,
   messages
 })
 
@@ -83,10 +85,10 @@ messages.push(ai1.message)
 const r1 = await processAnswer(ai1.message.content)
 
 if (r1) {
-  messages.push({ role: 'user', content: JSON.stringify(r1) })
+  messages.push({ role: 'user', content: JSON.stringify(r1, null, 2) })
 
   const ai2 = await ollama.chat({
-    model: 'konsumer/weather',
+    model,
     messages
   })
   messages.push(ai2.message)
