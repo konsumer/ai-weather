@@ -64,7 +64,7 @@ async function processAnswer(answer) {
         return { error: 'Could not parse function-call.' }
       }
       const res = await functions[r[1]](JSON.parse(r[2] || '{}'))
-      return { [r[1]]: { status: 'success', ...res } }
+      return res
     } catch (e) {
       if (DEBUG) {
         console.error(e.message)
@@ -87,7 +87,7 @@ messages.push(ai1.message)
 const r1 = await processAnswer(ai1.message.content)
 
 if (r1) {
-  messages.push({ role: 'user', content: JSON.stringify(r1, null, 2) })
+  messages.push({ role: 'user', content: `Function Response: ${JSON.stringify(r1)}` })
 
   const ai2 = await ollama.chat({
     model,
@@ -113,7 +113,7 @@ if (DEBUG) {
         if (role === 'user') {
           user = chalk.cyan(role)
           try {
-            message = colorize(JSON.stringify(JSON.parse(content), null, 2))
+            message = 'RESPONSE ' + colorize(JSON.stringify(JSON.parse(content?.split('Function Response: ').pop()), null, 2))
           } catch (e) {}
         } else {
           try {
